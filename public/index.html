@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniPlan - Управління Навантаженням ВНЗ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div id="main-app" class="visible">
+    <header>
+        <div class="logo-title">
+            <h1><i class="fas fa-graduation-cap"></i> UniPlan</h1>
+            <p>Система управління навчальним навантаженням</p>
+        </div>
+        <div class="user-controls">
+            <span id="welcome-message" class="user-status"></span>
+
+            <button id="show-login-btn" class="header-btn primary-btn hidden">
+                <i class="fas fa-sign-in-alt"></i> Увійти
+            </button>
+
+            <button id="logout-btn" class="header-btn danger-btn hidden">
+                <i class="fas fa-sign-out-alt"></i> Вийти
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="tabs" id="main-tabs">
+        </nav>
+
+        <div id="students" class="tab-content">
+            <h2><i class="fas fa-user-graduate"></i> Студенти</h2>
+            <button id="add-student-btn" class="add-btn hidden"><i class="fas fa-plus"></i> Додати Студента</button>
+            <div id="student-form-container" class="form-container hidden"></div>
+
+            <div id="student-filter-controls" class="filter-controls"></div>
+
+            <table id="students-table">
+                <thead>
+                <tr>
+                    <th data-sort="fullName">ПІБ</th>
+                    <th data-sort="group.name">Група</th>
+                    <th data-sort="studentID">Заліковка ID</th>
+                    <th data-sort="email">Email</th>
+                    <th>Дії</th>
+                </tr>
+                </thead>
+                <tbody id="students-list"></tbody>
+            </table>
+        </div>
+
+        <div id="teachers" class="tab-content">
+            <h2><i class="fas fa-chalkboard-teacher"></i> Викладачі</h2>
+            <button id="add-teacher-btn" class="add-btn hidden"><i class="fas fa-plus"></i> Додати Викладача</button>
+            <div id="teacher-form-container" class="form-container hidden"></div>
+
+            <div id="teacher-filter-controls" class="filter-controls"></div>
+
+            <table id="teachers-table">
+                <thead>
+                <tr>
+                    <th data-sort="fullName">ПІБ</th>
+                    <th data-sort="position">Посада</th>
+                    <th data-sort="department">Кафедра</th>
+                    <th data-sort="phone">Телефон</th>
+                    <th data-sort="email">Email</th>
+                    <th>Дії</th>
+                </tr>
+                </thead>
+                <tbody id="teachers-list"></tbody>
+            </table>
+        </div>
+
+        <div id="subjects" class="tab-content">
+            <h2><i class="fas fa-book"></i> Предмети</h2>
+            <button id="add-subject-btn" class="add-btn hidden"><i class="fas fa-plus"></i> Додати Предмет</button>
+            <div id="subject-form-container" class="form-container hidden"></div>
+
+            <div id="subject-filter-controls" class="filter-controls"></div>
+
+            <table id="subjects-table">
+                <thead>
+                <tr>
+                    <th data-sort="name">Назва</th>
+                    <th data-sort="code">Код</th>
+                    <th data-sort="hoursTotal">Всього (год)</th>
+                    <th data-sort="hoursLection">Лекції (год)</th>
+                    <th data-sort="hoursPractice">Практика (год)</th>
+                    <th>Дії</th>
+                </tr>
+                </thead>
+                <tbody id="subjects-list"></tbody>
+            </table>
+        </div>
+
+        <div id="groups" class="tab-content">
+            <h2><i class="fas fa-users"></i> Групи</h2>
+            <button id="add-group-btn" class="add-btn hidden"><i class="fas fa-plus"></i> Додати Групу</button>
+            <div id="group-form-container" class="form-container hidden"></div>
+
+            <div id="group-filter-controls" class="filter-controls"></div>
+
+            <table id="groups-table">
+                <thead>
+                <tr>
+                    <th data-sort="name">Назва</th>
+                    <th data-sort="course">Курс</th>
+                    <th data-sort="studentsCount">Кількість Студентів</th>
+                    <th>Дії</th>
+                </tr>
+                </thead>
+                <tbody id="groups-list"></tbody>
+            </table>
+        </div>
+
+        <div id="load-distribution" class="tab-content">
+            <h2><i class="fas fa-clipboard-list"></i> Призначення Навантаження</h2>
+            <button id="add-load-btn" class="add-btn hidden"><i class="fas fa-plus"></i> Призначити Навантаження</button>
+            <div id="load-form-container" class="form-container hidden"></div>
+
+            <div id="load-filter-controls" class="filter-controls"></div>
+
+            <table id="load-table">
+                <thead>
+                <tr>
+                    <th data-sort="academicYear">Рік/Сем</th>
+                    <th data-sort="teacher.fullName">Викладач</th>
+                    <th data-sort="subject.name">Предмет</th>
+                    <th data-sort="group.name">Група</th>
+                    <th data-sort="type">Тип</th>
+                    <th data-sort="hoursAssigned">Години</th>
+                    <th>Дії</th>
+                </tr>
+                </thead>
+                <tbody id="load-list"></tbody>
+            </table>
+        </div>
+
+        <div id="schedule" class="tab-content">
+            <h2><i class="fas fa-calendar-alt"></i> Загальний Розклад Занять</h2>
+            <button id="add-schedule-btn" class="add-btn hidden"><i class="fas fa-plus"></i> Додати Запис</button>
+            <div id="schedule-form-container" class="form-container hidden"></div>
+
+            <div id="schedule-filter-controls" class="filter-controls"></div>
+
+            <table id="schedule-table">
+                <thead>
+                <tr>
+                    <th data-sort="academicYear">Рік/Сем</th>
+                    <th data-sort="dayOfWeek">День</th>
+                    <th data-sort="startTime">Час</th>
+                    <th data-sort="auditorium">Аудиторія</th>
+                    <th data-sort="teacher.fullName">Викладач</th>
+                    <th data-sort="group.name">Група</th>
+                    <th data-sort="subject.name">Предмет (Тип)</th>
+                    <th>Дії</th>
+                </tr>
+                </thead>
+                <tbody id="schedule-list"></tbody>
+            </table>
+        </div>
+
+        <div id="student-my-schedule" class="tab-content">
+            <h2><i class="fas fa-calendar-check"></i> Мій Розклад (Група)</h2>
+            <div class="my-schedule-view" id="student-schedule-view"></div>
+        </div>
+
+        <div id="my-schedule" class="tab-content">
+            <h2><i class="fas fa-calendar-check"></i> Мій Розклад (Викладач)</h2>
+            <div class="my-schedule-view" id="my-schedule-view"></div>
+        </div>
+
+    </div>
+</div>
+
+<div id="login-modal" class="modal-backdrop hidden">
+    <div class="modal-content">
+        <h2><i class="fas fa-lock"></i> Вхід до системи</h2>
+        <form id="login-form">
+            <input type="email" id="login-email" placeholder="Ваш Email" required>
+            <input type="password" id="login-password" placeholder="Пароль" required>
+            <i id="toggle-password-btn" class="fas fa-eye"></i>
+            <button type="submit" class="primary-btn full-width-btn">Увійти</button>
+        </form>
+        <p id="login-message" class="error-message"></p>
+        <button type="button" id="close-modal-btn" class="close-btn">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
